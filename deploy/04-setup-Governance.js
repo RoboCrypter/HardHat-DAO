@@ -26,38 +26,38 @@ module.exports = async({ getNamedAccounts, deployments }) => {
 
     
 
-    console.log("Granting Proposer Role...")
+    log("Granting Proposer Role...")
 
     const grantingProposerRoleTx = await timeLock.grantRole(proposerRole, governorContract.address)
 
     await grantingProposerRoleTx.wait(1)
 
-    console.log("Proposer Role has been Granted!")
+    log("Proposer Role has been Granted!")
 
 
 
-    console.log("Granting Executer Role...")
+    log("Granting Executer Role...")
 
     const grantingExecutorRoleTx = await timeLock.grantRole(executorRole, ADDRESS_ZERO)
 
     await grantingExecutorRoleTx.wait(1)
 
-    console.log("Executer Role has been Granted!")
+    log("Executer Role has been Granted!")
 
 
 
-    console.log("Revoking Admin Role...")
+    log("Revoking Admin Role...")
 
     const revokingAdminRoleTx = await timeLock.revokeRole(adminRole, deployer)
 
     await revokingAdminRoleTx.wait(1)
 
-    console.log("Admin Role has been Revoked!")
+    log("Admin Role has been Revoked!")
 
     // Guess What? Now, Anything that the "TimeLock" wants to do has to go through governance process!
 
 
-    console.log("Roles have been Granted!")
+    log("Roles have been Granted!")
 }
 
 

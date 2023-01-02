@@ -1,5 +1,5 @@
 const { MAX_SUPPLY, devNetworks } = require("../helper-hardhat-config")
-const { network, ethers } = require("hardhat")
+const { network, ethers, deployments } = require("hardhat")
 const { verify } = require("../utils/verify")
 
 
@@ -36,6 +36,8 @@ module.exports = async({ getNamedAccounts, deployments }) => {
 
 
 
+    log("Delegating...")
+
     await delegate(governanceToken.address, deployer)
 
     log("Delegated!")
@@ -44,6 +46,8 @@ module.exports = async({ getNamedAccounts, deployments }) => {
 
 
 const delegate = async(governanceTokenAddress, delegatedAccount) => {
+
+    const { log } = deployments
     
     const accounts = await ethers.getSigners()
 
@@ -55,7 +59,7 @@ const delegate = async(governanceTokenAddress, delegatedAccount) => {
 
     await delegateTx.wait(1)
 
-    console.log(`Checkpoints : ${await governanceToken.numCheckpoints(delegatedAccount)}`)
+    log(`Checkpoints : ${await governanceToken.numCheckpoints(delegatedAccount)}`)
 }
 
 
